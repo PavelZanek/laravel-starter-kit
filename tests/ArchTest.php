@@ -40,7 +40,6 @@ arch('avoid mutation')
     ->ignoring([
         'App\Console\Commands',
         'App\Exceptions',
-        'App\Filament',
         'App\Http\Requests',
         'App\Jobs',
         'App\Livewire',
@@ -59,7 +58,6 @@ arch('avoid inheritance')
     ->ignoring([
         'App\Console\Commands',
         'App\Exceptions',
-        'App\Filament',
         'App\Http\Requests',
         'App\Jobs',
         'App\Livewire',
