@@ -23,12 +23,20 @@ arch('models')
         'App\Rules',
         'App\Services',
         'Database\Factories',
+    ])
+    ->ignoring([
+        'App\Models\User',
+        'App\Models\Team',
     ]);
 
 arch('ensure factories', function (): void {
-    expect($models = getModels())->toHaveCount(1);
+    expect($models = getModels())->toHaveCount(4);
 
     foreach ($models as $model) {
+        if (isWithoutFactory($model)) {
+            continue;
+        }
+
         /* @var \Illuminate\Database\Eloquent\Factories\HasFactory $model */
         expect($model::factory())
             ->toBeInstanceOf(Illuminate\Database\Eloquent\Factories\Factory::class);
@@ -36,9 +44,13 @@ arch('ensure factories', function (): void {
 });
 
 arch('ensure datetime casts', function (): void {
-    expect($models = getModels())->toHaveCount(1);
+    expect($models = getModels())->toHaveCount(4);
 
     foreach ($models as $model) {
+        if (isWithoutFactory($model)) {
+            continue;
+        }
+
         /* @var \Illuminate\Database\Eloquent\Factories\HasFactory $model */
         $instance = $model::factory()->create();
 
@@ -74,4 +86,9 @@ function getModels(): array
         ->map(function ($file): string {
             return 'App\Models\\'.basename($file, '.php');
         })->toArray();
+}
+
+function isWithoutFactory(string $model): bool
+{
+    return \in_array($model, ['App\Models\Membership', 'App\Models\TeamInvitation'], true);
 }

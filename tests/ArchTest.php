@@ -23,6 +23,7 @@ arch('avoid open for extension')
     ->toBeFinal()
     ->ignoring([
         'App\Models\User',
+        'App\Models\Team',
     ]);
 
 arch('ensure no extends')

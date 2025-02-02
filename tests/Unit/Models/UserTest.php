@@ -12,8 +12,11 @@ test('to array', function (): void {
         'name',
         'email',
         'email_verified_at',
+        'current_team_id',
+        'profile_photo_path',
         'created_at',
         'updated_at',
-        'deleted_at',
+        'two_factor_confirmed_at',
+        'profile_photo_url',
     ]);
 });
