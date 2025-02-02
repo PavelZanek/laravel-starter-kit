@@ -23,6 +23,7 @@ arch('models')
         'App\Rules',
         'App\Services',
         'Database\Factories',
+        'Database\Seeders',
     ]);
 
 arch('ensure factories', function (): void {
