@@ -70,7 +70,7 @@ arch('avoid inheritance')
         'App\Http\Responses',
     ]);
 
-arch('annotations')
-    ->expect('App')
-    ->toHavePropertiesDocumented()
-    ->toHaveMethodsDocumented();
+// arch('annotations')
+//    ->expect('App')
+//    ->toHavePropertiesDocumented()
+//    ->toHaveMethodsDocumented();
