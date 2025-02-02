@@ -11,9 +11,12 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
+        "laravel/horizon": "^5.30",
+        "laravel/telescope": "^5.4",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.14",
         "driftingly/rector-laravel": "^2.0",
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.0",
