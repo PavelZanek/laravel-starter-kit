@@ -14,7 +14,7 @@ final class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        User::factory()->withPersonalTeam()->create([
             'name' => 'Pavel',
             'email' => 'zanek.pavel@gmail.com',
         ]);

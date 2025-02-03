@@ -14,6 +14,6 @@ final class FakeUserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(150)->create();
+        User::factory(150)->withPersonalTeam()->create();
     }
 }
