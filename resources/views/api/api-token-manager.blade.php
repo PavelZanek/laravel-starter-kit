@@ -117,6 +117,34 @@
         </x-slot>
     </x-dialog-modal>
 
+    <!-- API Token Permissions Modal -->
+    <x-dialog-modal wire:model.live="managingApiTokenPermissions">
+        <x-slot name="title">
+            {{ __('api.api_token_manager.modals.permissions.title') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @foreach (Laravel\Jetstream\Jetstream::$permissions as $permission)
+                    <label class="flex items-center">
+                        <x-checkbox wire:model="updateApiTokenForm.permissions" :value="$permission"/>
+                        <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ $permission }}</span>
+                    </label>
+                @endforeach
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$set('managingApiTokenPermissions', false)" wire:loading.attr="disabled">
+                {{ __('common.actions.cancel') }}
+            </x-secondary-button>
+
+            <x-button class="ms-3" wire:click="updateApiToken" wire:loading.attr="disabled">
+                {{ __('common.actions.save') }}
+            </x-button>
+        </x-slot>
+    </x-dialog-modal>
+
     <!-- Delete Token Confirmation Modal -->
     <x-confirmation-modal wire:model.live="confirmingApiTokenDeletion">
         <x-slot name="title">
