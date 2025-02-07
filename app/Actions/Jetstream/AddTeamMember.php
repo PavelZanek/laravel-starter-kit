@@ -46,7 +46,7 @@ final readonly class AddTeamMember implements AddsTeamMembers
             'email' => $email,
             'role' => $role,
         ], $this->rules(), [
-            'email.exists' => __('We were unable to find a registered user with this email address.'),
+            'email.exists' => __('teams.team_member_manager.add_member.messages.user_not_found'),
         ])->after(
             $this->ensureUserIsNotAlreadyOnTeam($team, $email)
         )->validateWithBag('addTeamMember');
@@ -76,7 +76,7 @@ final readonly class AddTeamMember implements AddsTeamMembers
             $validator->errors()->addIf(
                 $team->hasUserWithEmail($email),
                 'email',
-                __('This user already belongs to the team.')
+                __('teams.team_member_manager.add_member.messages.belongs_to_team')
             );
         };
     }

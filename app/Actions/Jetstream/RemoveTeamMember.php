@@ -46,7 +46,7 @@ final readonly class RemoveTeamMember implements RemovesTeamMembers
     {
         if ($teamMember->id === $team->owner->id) { // @phpstan-ignore-line
             throw ValidationException::withMessages([
-                'team' => [__('You may not leave a team that you created.')],
+                'team' => [__('teams.team_member_manager.remove_team_member.messages.owner')],
             ])->errorBag('removeTeamMember');
         }
     }
