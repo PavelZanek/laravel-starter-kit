@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - jetstream
+      - jetstream-custom
 
 jobs:
   ci:
