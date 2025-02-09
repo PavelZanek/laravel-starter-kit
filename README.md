@@ -1,66 +1,269 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Starter Kit
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A robust starter kit for Laravel projects that accelerates your development process with pre-configured features and quality tools. This repository offers multiple branches tailored to different use cases, all built on top of a clean Laravel installation.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Branches Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### `main`
+- **Clean installation of Laravel**  
+  Provides a basic Laravel setup without additional scaffolding.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### `jetstream`
+- **Based on main branch**  
+  Extends the clean installation with further enhancements.
+- **Livewire stack**  
+  Jetstream is configured to use the Livewire stack.
+- **Enabled dark mode**  
+  Dark mode support is activated.
+- **Enabled multi tenancy (Teams)**  
+  Multi tenancy is enabled with Teams support.
 
-## Learning Laravel
+### `jetstream-custom`
+- **Based on jetstream branch**  
+  Builds upon the Jetstream configuration.
+- **Multilang - language switcher (en, cs)**  
+  Includes a language switcher for English and Czech.
+- **Dark mode switcher**  
+  Provides a dynamic dark mode toggle.
+- **Custom layout (single layout for guest and app section)**  
+  Utilizes a unified layout for both guest and authenticated areas.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Common Features (All Branches)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Code Quality & Testing:**
+    - Tests are written using [Pest](https://pestphp.com/).
+    - Code coverage and type coverage are configured.
+    - Code styling is enforced with [Laravel Pint](https://github.com/laravel/pint).
+    - Automated refactoring is supported by [Rector PHP](https://github.com/rectorphp/rector).
+    - Static analysis is performed using [PHPStan](https://phpstan.org/).
 
-## Laravel Sponsors
+- **Basic Application Settings:**  
+  The `AppServiceProvider.php` configures several key settings to ensure consistent, secure, and optimized behavior across all environments:
+    - **Command Safety:** Prohibits destructive database commands in production.
+    - **Strict Models:** Enforces strict mode for Eloquent models.
+    - **Secure URLs:** Forces HTTPS when in production.
+    - **Immutable Dates:** Uses immutable date objects (via CarbonImmutable) for predictable date handling.
+    - **Optimized Vite Integration:** Enables aggressive asset prefetching for improved performance.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Preinstalled Packages:**  
+  Includes several essential packages for development and monitoring:
+    - [Laravel Telescope](https://laravel.com/docs/telescope)
+    - [Laravel Horizon](https://laravel.com/docs/horizon)
+    - [Debugbar](https://github.com/barryvdh/laravel-debugbar)
+    - [Sentry](https://sentry.io/)
 
-### Premium Partners
+- **Seeders:**  
+  Prepared seeders are available to quickly bootstrap initial data.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **GitHub Actions:**  
+  CI/CD workflows are in place for automated testing, code style checks, and static analysis.
+
+---
+
+## Installation
+
+1. **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/PavelZanek/laravel-starter-kit.git
+    cd laravel-starter-kit
+    ```
+
+2. **Checkout the Desired Branch:**
+
+    **For a clean Laravel installation:**
+    ```bash
+    git checkout jetstream-custom
+    ```
+
+    **For a Jetstream installation:**
+    ```bash
+    git checkout jetstream
+    ```
+
+    **For a custom Jetstream installation:**
+    ```bash
+    git checkout jetstream-custom
+    ```
+
+3. **Install Dependencies:**
+
+   ```bash
+   composer install
+   npm install && npm run dev
+   ```
+
+4. **Configure the Environment:**
+
+    Copy the example environment file and generate an application key:
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+5. **Setup database:**
+
+   Update the database credentials in the `.env` file and run the migrations and seeders:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. **Run the Application:**
+
+    ```bash
+    php artisan serve
+    ```
+
+### Using Laravel Sail (Docker)
+
+[Laravel Sail](https://laravel.com/docs/11.x/sail) is preinstalled for a Docker-based development environment. Sail provides a simple command-line interface for interacting with your Docker containers. Ensure you have [Docker installed](https://docs.docker.com/get-started/get-docker/) on your system, then run:
+
+```bash
+./vendor/bin/sail up
+```
+
+This command starts all necessary containers (e.g., the web server, database, Redis, mail service) as configured. You can also prefix common Artisan commands with ./vendor/bin/sail to run them inside the Docker container. For example:
+
+```bash
+./vendor/bin/sail artisan migrate --seed
+```
+
+For convenience, consider creating an alias for Sail in your shell configuration:
+
+```bash
+alias sail='./vendor/bin/sail'
+```
+
+This alias allows you to run Sail commands more easily:
+
+```bash
+sail up -d
+sail artisan migrate --seed
+sail composer test
+...
+```
+
+### Project Configuration
+
+The project configuration is managed via the .env file. Key settings include:
+
+- **Application Settings:** `APP_NAME`, `APP_ENV`, `APP_KEY`, `APP_DEBUG`, `APP_URL`, and `APP_PORT`.
+- **Locale Settings:** `APP_LOCALE` and `APP_FALLBACK_LOCALE`.
+- **Database Settings:** `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD`.
+- **Session & Cache:** Configurations for session and cache drivers.
+- **Third-Party Services:** Settings for Redis, mail (e.g., Mailpit), AWS, and others.
+- **Docker Port Forwarding:** Environment variables such as `FORWARD_DB_PORT`, `FORWARD_REDIS_PORT`, etc., help map container ports to your host machine.
+
+Review the provided .env.example file for complete details and adjust as needed.
+
+---
+
+## Composer Scripts Explanation
+
+- **Refactoring:**
+    - **`composer refactor`**  
+      Runs [Rector](https://github.com/rectorphp/rector) to automatically refactor your code based on defined rules.
+    - **`composer test:refactor`**  
+      Executes Rector in dry-run mode (`--dry-run --ansi`) to preview the potential refactoring changes without modifying any files.
+
+- **Linting:**
+    - **`composer lint`**  
+      Runs [Laravel Pint](https://github.com/laravel/pint) to automatically fix code style issues.
+    - **`composer test:lint`**  
+      Executes Pint in test mode (`--test`) to verify that the code adheres to the project's style guidelines without making changes.
+
+- **Static Analysis & Type Checking:**
+    - **`composer test:types`**  
+      Runs [PHPStan](https://phpstan.org/) with a memory limit of 2G, using a table error format and ANSI output. This command analyzes your code to ensure proper type usage and to catch potential errors early.
+
+- **Test Coverage:**
+    - **`composer test:type-coverage`**  
+      Uses [Pest](https://pestphp.com/) with the `--type-coverage` flag to enforce a minimum of 100% type coverage.
+    - **`composer test:unit`**  
+      Runs unit tests with Pest in parallel mode (`--parallel`) and CI mode (`--ci`), with colored output (`--colors=always`), generating a coverage report and enforcing a minimum of 100% test coverage.
+
+- **Comprehensive Testing:**
+    - **`composer test`**  
+      A composite command that sequentially executes:
+        1. `composer test:refactor`
+        2. `composer test:lint`
+        3. `composer test:types`
+        4. `composer test:type-coverage`
+        5. `composer test:unit`  
+           This ensures that code refactoring suggestions, code style, static analysis, type coverage, and unit tests all pass successfully.
+
+---
+
+**Using Laravel Sail:**
+
+If you are using Laravel Sail (Docker), simply prefix these commands with `sail` to run them inside the Docker container. For example:
+
+```bash
+./vendor/bin/sail composer test
+```
+
+This will execute the comprehensive testing command within the Docker environment.
+
+---
+
+## Running Tests and Code Quality Tools
+
+- **Run Tests:**
+
+   ```bash
+   ./vendor/bin/pest
+   ```
+  
+- **Static Analysis & Type Checks:**
+
+    ```bash
+    ./vendor/bin/phpstan analyse
+    ```
+  
+- **Code Styling Fixes:**
+
+    ```bash
+    ./vendor/bin/pint
+    ```
+
+- **Automated Refactoring:**
+
+    ```bash
+    ./vendor/bin/rector process
+    ```
+
+---
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Security
 
-## Security Vulnerabilities
+If you discover any security-related issues, please email zanek.pavel@gmail.com instead of using the issue tracker.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+---
+
+## Support the Developer
+
+If you find this package helpful and would like to support its ongoing development, consider leaving a tip. Your support is greatly appreciated!
+
+[Leave a Tip](https://streamelements.com/pavelzanek/tip)
+
+Thank you for your generosity!
+
+### About the Developer
+
+This package is developed and maintained by [Pavel Zaněk](https://www.pavelzanek.com/en), a passionate developer with extensive experience in Laravel and PHP development.
