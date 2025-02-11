@@ -13,5 +13,5 @@
 }
 
 .smooth-color-transition {
-    transition: background-color 500ms ease-in-out, color 500ms ease-in-out;
+    transition: color 0ms ease-in-out;
 }

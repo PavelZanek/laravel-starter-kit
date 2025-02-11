@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 return [
     'dashboard' => 'Dashboard',
+    'github_repository' => 'GitHub Repository',
+    'close_sidebar' => 'Close Sidebar',
+    'created_by' => 'Created by',
     'teams' => [
         'manage_team' => 'Manage Team',
         'team_settings' => 'Team Settings',
@@ -24,5 +27,23 @@ return [
             'cs' => 'Czech',
             'en' => 'English',
         ],
+    ],
+    'useful_links' => [
+        'useful_links' => 'Useful Links',
+        'github' => 'GitHub',
+        'twitter' => 'Twitter',
+        'facebook' => 'Facebook',
+        'linkedin' => 'LinkedIn',
+        'pinkary' => 'Pinkary',
+        'mastodon' => 'Mastodon',
+        'bluesky' => 'BlueSky',
+        'twitch' => 'Twitch',
+        'youtube' => 'YouTube',
+        'stream_elements' => 'Stream Elements',
+        'paypal' => 'PayPal',
+        'donate' => 'Donate',
+        'about_author' => 'About Author',
+        'social_media' => 'Social Media',
+        'live_streams' => 'Live Streams',
     ],
 ];
