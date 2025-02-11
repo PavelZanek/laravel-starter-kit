@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\LanguageSwitcherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/locale/{locale}', LanguageSwitcherController::class)->name('locale.switch');
 
 Route::middleware([
     'auth:sanctum',

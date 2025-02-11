@@ -16,4 +16,13 @@ return [
         'api_tokens' => 'API Tokens',
         'logout' => 'Logout',
     ],
+    'login' => 'Login',
+    'register' => 'Register',
+    'language_switcher' => [
+        'choose_language' => 'Select language',
+        'languages' => [
+            'cs' => 'Czech',
+            'en' => 'English',
+        ],
+    ],
 ];

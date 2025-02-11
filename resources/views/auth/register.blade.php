@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -25,7 +25,7 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('auth.register.fields.confirm_password') }}" />
+                <x-label for="password_confirmation" value="{{ __('auth.register.fields.password_confirmation') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
@@ -57,4 +57,4 @@
             </div>
         </form>
     </x-authentication-card>
-</x-guest-layout>
+</x-app-layout>

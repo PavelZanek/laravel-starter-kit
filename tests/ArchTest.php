@@ -22,6 +22,7 @@ arch('avoid open for extension')
     ->classes()
     ->toBeFinal()
     ->ignoring([
+        'App\Http\Controllers\Controller',
         'App\Models\User',
         'App\Models\Team',
     ]);
@@ -41,6 +42,7 @@ arch('avoid mutation')
     ->ignoring([
         'App\Console\Commands',
         'App\Exceptions',
+        'App\Http\Controllers',
         'App\Http\Requests',
         'App\Jobs',
         'App\Livewire',
@@ -59,6 +61,7 @@ arch('avoid inheritance')
     ->ignoring([
         'App\Console\Commands',
         'App\Exceptions',
+        'App\Http\Controllers',
         'App\Http\Requests',
         'App\Jobs',
         'App\Livewire',

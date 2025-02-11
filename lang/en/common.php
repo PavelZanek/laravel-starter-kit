@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 return [
+    'en' => 'English',
+    'cs' => 'Čeština',
     'yes' => 'Yes',
     'no' => 'No',
     'is_active' => 'Active',

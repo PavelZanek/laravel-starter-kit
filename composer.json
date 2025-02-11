@@ -10,12 +10,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-heroicons": "^2.5",
         "laravel/framework": "^11.31",
         "laravel/horizon": "^5.30",
-        "laravel/telescope": "^5.4",
-        "laravel/tinker": "^2.9",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
+        "laravel/telescope": "^5.4",
+        "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0"
     },
     "require-dev": {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-arch('controllers')
-    ->expect('App\Http\Controllers')
-    ->toExtendNothing()
-    ->not->toBeUsed();
+// arch('controllers')
+//    ->expect('App\Http\Controllers')
+//    ->toExtendNothing()
+//    ->not->toBeUsed();
 
 // arch('middleware')
 //    ->expect('App\Http\Middleware')
