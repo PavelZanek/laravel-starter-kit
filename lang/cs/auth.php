@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     'register' => [
+        'title' => 'Registrace',
         'terms' => 'Souhlasím s :terms_of_service a :privacy_policy.',
         'already_registered' => 'Už máte účet?',
         'fields' => [
@@ -17,6 +18,7 @@ return [
         ],
     ],
     'login' => [
+        'title' => 'Přihlášení',
         'fields' => [
             'email' => 'E-mail',
             'password' => 'Heslo',
@@ -28,6 +30,7 @@ return [
         ],
     ],
     'confirm_password' => [
+        'title' => 'Potvrzení hesla',
         'description' => 'Toto je zabezpečená oblast aplikace. Před pokračováním prosím potvrďte své heslo.',
         'fields' => [
             'password' => 'Heslo',
@@ -37,6 +40,7 @@ return [
         ],
     ],
     'forgot_password' => [
+        'title' => 'Zapomenuté heslo',
         'description' => 'Zapomněli jste heslo? Žádný problém. Stačí zadat svou e-mailovou adresu a my vám pošleme odkaz pro obnovení hesla, abyste si mohli nastavit nové.',
         'fields' => [
             'email' => 'E-mail',
@@ -46,6 +50,7 @@ return [
         ],
     ],
     'reset_password' => [
+        'title' => 'Obnovení hesla',
         'fields' => [
             'email' => 'E-mail',
             'password' => 'Heslo',
@@ -56,6 +61,7 @@ return [
         ],
     ],
     'two_factor_challenge' => [
+        'title' => 'Dvoufaktorová autentizace',
         'confirm_authentication_code' => 'Pro přístup k účtu zadejte ověřovací kód z vaší autentizační aplikace.',
         'confirm_recovery_code' => 'Pro přístup k účtu zadejte jeden ze svých nouzových obnovovacích kódů.',
         'fields' => [
@@ -69,6 +75,7 @@ return [
         ],
     ],
     'verify_email' => [
+        'title' => 'Ověření e-mailu',
         'description' => 'Před pokračováním prosím ověřte svou e-mailovou adresu kliknutím na odkaz, který jsme vám právě poslali. Pokud jste e-mail neobdrželi, rádi vám jej pošleme znovu.',
         'edit_profile' => 'Upravit profil',
         'flash_messages' => [

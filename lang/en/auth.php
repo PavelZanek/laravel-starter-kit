@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     'register' => [
+        'title' => 'Register',
         'terms' => 'I agree to the :terms_of_service and :privacy_policy.',
         'already_registered' => 'Already registered?',
         'fields' => [
@@ -17,6 +18,7 @@ return [
         ],
     ],
     'login' => [
+        'title' => 'Log in',
         'fields' => [
             'email' => 'Email',
             'password' => 'Password',
@@ -28,6 +30,7 @@ return [
         ],
     ],
     'confirm_password' => [
+        'title' => 'Confirm Password',
         'description' => 'This is a secure area of the application. Please confirm your password before continuing.',
         'fields' => [
             'password' => 'Password',
@@ -37,6 +40,7 @@ return [
         ],
     ],
     'forgot_password' => [
+        'title' => 'Forgot Password',
         'description' => 'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.',
         'fields' => [
             'email' => 'Email',
@@ -46,6 +50,7 @@ return [
         ],
     ],
     'reset_password' => [
+        'title' => 'Reset Password',
         'fields' => [
             'email' => 'Emaol',
             'password' => 'Password',
@@ -56,6 +61,7 @@ return [
         ],
     ],
     'two_factor_challenge' => [
+        'title' => 'Two Factor Challenge',
         'confirm_authentication_code' => 'Please confirm access to your account by entering the authentication code provided by your authenticator application.',
         'confirm_recovery_code' => 'Please confirm access to your account by entering one of your emergency recovery codes.',
         'fields' => [
@@ -69,6 +75,7 @@ return [
         ],
     ],
     'verify_email' => [
+        'title' => 'Verify Email Address',
         'description' => 'Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.',
         'edit_profile' => 'Edit profile',
         'flash_messages' => [

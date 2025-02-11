@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('pageTitle') {{ __('auth.reset_password.title') }} @endsection
+
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
