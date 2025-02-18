@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Users\PreferredLocaleEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,8 +14,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     use HasApiTokens;
 
@@ -21,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
 
     use HasProfilePhoto;
+    use HasRoles;
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
@@ -34,6 +38,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'preferred_locale',
+        'email_verified_at',
+        'remember_token',
+        'current_team_id',
     ];
 
     /**
@@ -58,6 +66,17 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Get the user's preferred locale.
+     */
+    public function preferredLocale(): string
+    {
+        /** @var PreferredLocaleEnum $preferredLocale */
+        $preferredLocale = $this->preferred_locale;
+
+        return $preferredLocale->value;
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -67,6 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'preferred_locale' => PreferredLocaleEnum::class,
         ];
     }
 }

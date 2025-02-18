@@ -41,4 +41,4 @@ it('returns 404 if the locale is invalid', function (): void {
     $middleware = new SetLocale;
 
     $middleware->handle($request, fn (Request $req): Response => new Response('OK'));
-})->throws(Symfony\Component\HttpKernel\Exception\HttpException::class)->only();
+})->throws(Symfony\Component\HttpKernel\Exception\HttpException::class);

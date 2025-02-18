@@ -14,6 +14,7 @@ test('to array', function (): void {
         'email_verified_at',
         'current_team_id',
         'profile_photo_path',
+        'preferred_locale',
         'created_at',
         'updated_at',
         'two_factor_confirmed_at',

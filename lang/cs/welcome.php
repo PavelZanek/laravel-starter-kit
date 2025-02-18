@@ -22,5 +22,5 @@ return [
     'authentication' => [
         'title' => 'Autentizace',
         'description' => 'Laravel Jetstream obsahuje předpřipravené stránky pro přihlášení a registraci, včetně podpory ověřování e-mailů a obnovy zapomenutého hesla. Díky tomu se můžete rovnou soustředit na to nejdůležitější – vývoj vaší aplikace.',
-    ]
+    ],
 ];

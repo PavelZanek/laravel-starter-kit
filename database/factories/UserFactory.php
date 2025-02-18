@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Users\DefaultRoleEnum;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -38,6 +40,7 @@ final class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
+            'preferred_locale' => fake()->randomElement(config('project.available_locales')),
         ];
     }
 
@@ -70,5 +73,28 @@ final class UserFactory extends Factory
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
         );
+    }
+
+    /**
+     * Attach role to the user.
+     */
+    public function withRole(string $roleName = DefaultRoleEnum::BASIC->value, string $guardName = 'web'): static
+    {
+        return $this->afterCreating(function (User $user) use ($roleName, $guardName): void {
+            $role = Role::query()
+                ->where('name', $roleName)
+                ->where('guard_name', $guardName)
+                ->first();
+
+            if (! $role) {
+                $role = Role::create([
+                    'name' => $roleName,
+                    'guard_name' => $guardName,
+                    'is_default' => false,
+                ]);
+            }
+
+            $user->roles()->sync([$role]);
+        });
     }
 }

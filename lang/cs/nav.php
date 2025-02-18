@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
     'dashboard' => 'Nástěnka',
+    'admin' => 'Administrace',
+    'user_management' => 'Správa uživatelů',
+    'users' => 'Uživatelé',
+    'roles' => 'Role',
     'github_repository' => 'GitHub repozitář',
     'close_sidebar' => 'Zavřít postranní panel',
     'created_by' => 'Vytvořil',

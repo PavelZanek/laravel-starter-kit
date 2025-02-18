@@ -3,7 +3,10 @@
 declare(strict_types=1);
 
 arch('livewire components')
-    ->expect('App\Livewire')
+    ->expect([
+        'App\Livewire\App',
+        'App\Livewire\Layout',
+    ])
     ->toBeClasses()
     ->toExtend('Livewire\Component')
     ->toHaveMethod('render')
@@ -12,7 +15,17 @@ arch('livewire components')
         'App\Http\Livewire',
         'App\Providers\AppServiceProvider',
     ])
-    ->ignoring('App\Livewire\Concerns')
+    ->not->toUse(['redirect', 'to_route', 'back']);
+
+arch('livewire form objects')
+    ->expect('App\Livewire\Forms')
+    ->toBeClasses()
+    ->toExtend('Livewire\Form')
+    ->toHaveMethod('setFormData')
+    ->toOnlyBeUsedIn([
+        'App\Livewire\App',
+        'App\Livewire\Layout',
+    ])
     ->not->toUse(['redirect', 'to_route', 'back']);
 
 arch('livewire concerns')

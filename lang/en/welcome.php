@@ -22,5 +22,5 @@ return [
     'authentication' => [
         'title' => 'Authentication',
         'description' => 'Authentication and registration views are included with Laravel Jetstream, as well as support for user email verification and resetting forgotten passwords. So, you\'re free to get started with what matters most: building your application.',
-    ]
+    ],
 ];

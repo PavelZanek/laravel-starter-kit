@@ -37,8 +37,10 @@
 
     @include('layouts.inc.header')
 
-    <main class="mt-auto pl-0 lg:pl-64 pt-12 flex-grow flex flex-col">
-        @include('layouts.inc.breadcrumb')
+    <main class="mt-auto pl-0 lg:pl-64 flex-grow flex flex-col">
+        <div class="pt-2">
+            @include('layouts.inc.breadcrumb')
+        </div>
 
         @include('layouts.inc.flash-messages')
 

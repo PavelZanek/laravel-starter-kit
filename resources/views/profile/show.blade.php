@@ -21,6 +21,10 @@
                 <x-section-border />
             @endif
 
+            @livewire('app.profile.manage-preferred-locale-component')
+
+            <x-section-border />
+
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.two-factor-authentication-form')

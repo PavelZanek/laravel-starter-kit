@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
     'dashboard' => 'Dashboard',
+    'admin' => 'Admin',
+    'user_management' => 'User Management',
+    'users' => 'Users',
+    'roles' => 'Roles',
     'github_repository' => 'GitHub Repository',
     'close_sidebar' => 'Close Sidebar',
     'created_by' => 'Created by',

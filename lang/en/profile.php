@@ -54,6 +54,13 @@ return [
             'regenerate_recovery_codes' => 'Regenerate Recovery Codes',
             'show_recovery_codes' => 'Show Recovery Codes',
         ],
+        'confirm_password_modal' => [
+            'title' => 'Confirm Password',
+            'content' => 'For your security, please confirm your password to continue.',
+            'fields' => [
+                'password' => 'Password',
+            ],
+        ],
     ],
     'logout_other_browser_sessions' => [
         'title' => 'Browser Sessions',
@@ -72,5 +79,22 @@ return [
         'confirm_message' => 'Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
         'password_placeholder' => 'Password',
         'action' => 'Delete Account',
+    ],
+    'preferred_locale_form' => [
+        'title' => 'Preferred language',
+        'description' => 'Choose the language in which you want to see the content (notifications, alerts, ...).',
+        'fields' => [
+            'preferred_locale' => 'Preferred language',
+        ],
+        'request' => [
+            'update' => [
+                'preferred_locale' => [
+                    'required' => 'This field is mandatory.',
+                    'string' => 'The preferred language must be text.',
+                    'max' => 'The preferred language must have no more than :max characters.',
+                    'enum' => 'The preferred language must be one of the following values: :values.',
+                ],
+            ],
+        ],
     ],
 ];

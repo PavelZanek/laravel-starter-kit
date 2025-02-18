@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions\Fortify;
 
+use App\Enums\Users\DefaultRoleEnum;
+use App\Enums\Users\PreferredLocaleEnum;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +38,17 @@ final readonly class CreateNewUser implements CreatesNewUsers
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user): void {
+                $preferredLocale = match (app()->getLocale()) {
+                    'cs' => PreferredLocaleEnum::CS->value,
+                    default => PreferredLocaleEnum::EN->value,
+                };
+
+                $user->update(['preferred_locale' => $preferredLocale]);
+
+                $user->assignRole(DefaultRoleEnum::BASIC);
+
+                app()->setLocale($preferredLocale);
+
                 $this->createTeam($user);
             });
         });

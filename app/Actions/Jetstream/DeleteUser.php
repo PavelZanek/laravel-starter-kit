@@ -33,7 +33,7 @@ final readonly class DeleteUser implements DeletesUsers
     /**
      * Delete the teams and team associations attached to the user.
      */
-    private function deleteTeams(User $user): void
+    public function deleteTeams(User $user): void
     {
         $user->teams()->detach();
 

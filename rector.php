@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
 use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
+use Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\Transform\Rector\String_\StringToClassConstantRector;
 use Rector\ValueObject\PhpVersion;
@@ -31,6 +32,10 @@ return static function (RectorConfig $rectorConfig): void {
 
         ReturnBinaryOrToEarlyReturnRector::class => [
             __DIR__.'/app/Providers/TelescopeServiceProvider.php',
+        ],
+
+        PrivatizeFinalClassMethodRector::class => [
+            __DIR__.'/app/Livewire/Forms/*',
         ],
     ]);
 

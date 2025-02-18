@@ -34,3 +34,25 @@ if(darkModeToggleBtn) {
 
     });
 }
+
+window.addEventListener('swal:alert', function (event) {
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        showCloseButton: true,
+        timer: 3000,
+        timerProgressBar: true,
+        background: isDarkMode ? "#333" : "#fff",
+        color: isDarkMode ? "#fff" : "#000",
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: event.detail.type,
+        title: event.detail.title
+    });
+});

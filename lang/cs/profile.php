@@ -54,6 +54,13 @@ return [
             'regenerate_recovery_codes' => 'Znovu vygenerovat záložní kódy',
             'show_recovery_codes' => 'Zobrazit záložní kódy',
         ],
+        'confirm_password_modal' => [
+            'title' => 'Potvrzení hesla',
+            'content' => 'Z bezpečnostních důvodů potvrďte své heslo pro pokračování.',
+            'fields' => [
+                'password' => 'Heslo',
+            ],
+        ],
     ],
     'logout_other_browser_sessions' => [
         'title' => 'Relace v prohlížeči',
@@ -72,5 +79,22 @@ return [
         'confirm_message' => 'Opravdu chcete smazat svůj účet? Jakmile bude váš účet smazán, všechna jeho data budou nenávratně odstraněna. Pro potvrzení zadejte své heslo.',
         'password_placeholder' => 'Heslo',
         'action' => 'Smazat účet',
+    ],
+    'preferred_locale_form' => [
+        'title' => 'Preferovaný jazyk',
+        'description' => 'Zvolte si jazyk, ve kterém chcete vidět obsah (notifikace, upozornění, ...).',
+        'fields' => [
+            'preferred_locale' => 'Preferovaný jazyk',
+        ],
+        'request' => [
+            'update' => [
+                'preferred_locale' => [
+                    'required' => 'Toto pole je povinné.',
+                    'string' => 'Preferovaný jazyk musí být text.',
+                    'max' => 'Preferovaný jazyk nesmí mít více než :max znaků.',
+                    'enum' => 'Preferovaný jazyk musí být jednou z následujících hodnot: :values.',
+                ],
+            ],
+        ],
     ],
 ];
