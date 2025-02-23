@@ -21,6 +21,11 @@ final class RoleForm extends Form
      */
     public array $modelData = [];
 
+    /**
+     * @var array<string, array<array-key, mixed>>
+     */
+    public array $relations = [];
+
     public function setFormData(?Role $role = null): void
     {
         $this->modelData = $role instanceof Role
@@ -29,6 +34,14 @@ final class RoleForm extends Form
                 'guard_name' => $role->guard_name,
             ]
             : [];
+
+        $this->relations = [
+            'permissions' => $role instanceof Role ? $role->permissions()
+                ->pluck('id')
+                ->mapWithKeys(fn (mixed $permissionId, int|string $key): array => [$permissionId => true])
+                ->toArray()
+            : [],
+        ];
     }
 
     /**
@@ -68,6 +81,9 @@ final class RoleForm extends Form
             'modelData.guard_name.string' => __('roles.validation.guard_name.string'),
             'modelData.guard_name.max' => __('roles.validation.guard_name.max'),
             'modelData.guard_name.enum' => __('roles.validation.guard_name.enum'),
+            'relations.permissions.array' => __('roles.validation.permissions.array'),
+            'relations.permissions.*.numeric' => __('roles.validation.permissions.*.numeric'),
+            'relations.permissions.*.exists' => __('roles.validation.permissions.*.exists'),
         ];
     }
 
@@ -79,6 +95,8 @@ final class RoleForm extends Form
         return [
             'modelData.name' => ['required', 'string', 'max:100'],
             'modelData.guard_name' => ['required', 'string', 'max:25', Rule::enum(RoleGuardEnum::class)],
+            'relations.permissions' => ['nullable', 'array'],
+            'relations.permissions.*' => ['exists:permissions,id'],
         ];
     }
 
@@ -91,6 +109,7 @@ final class RoleForm extends Form
         $validationAttributes = collect([
             'modelData.name' => __('roles.form.name'),
             'modelData.guard_name' => __('roles.form.guard_name'),
+            'relations.permissions' => __('roles.form.permissions'),
         ])->map(fn (string $value, string $key): array => [$key => Str::lower($value)])->collapse()->toArray();
 
         return $validationAttributes;
@@ -101,7 +120,10 @@ final class RoleForm extends Form
      */
     private function storeRecord(): Role
     {
-        return (new CreateRoleAction)->execute($this->modelData);
+        return (new CreateRoleAction)->execute(
+            $this->modelData,
+            array_keys($this->relations['permissions'] ?? [])
+        );
     }
 
     /**
@@ -109,6 +131,10 @@ final class RoleForm extends Form
      */
     private function updateRecord(Role $role): Role
     {
-        return (new UpdateRoleAction)->execute($role, $this->modelData);
+        return (new UpdateRoleAction)->execute(
+            $role,
+            $this->modelData,
+            array_keys($this->relations['permissions'] ?? [])
+        );
     }
 }

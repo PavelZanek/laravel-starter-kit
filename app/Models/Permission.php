@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * @mixin IdeHelperRole
+ * @mixin IdeHelperPermission
  */
 final class Permission extends SpatiePermission
 {
@@ -25,6 +25,23 @@ final class Permission extends SpatiePermission
         'name',
         'guard_name',
     ];
+
+    /**
+     * @return array<string, array<int, array<string, mixed>>>
+     */
+    public static function getPermissionSelectList(): array
+    {
+        /** @var array<string, array<int, array<string, mixed>>> $permissions */
+        $permissions = self::query()
+            ->select(['id', 'name'])
+            ->get()
+            ->groupBy(static function (Permission $permission): string {
+                return explode('.', $permission->name)[0];
+            })
+            ->toArray();
+
+        return $permissions;
+    }
 
     /**
      * A role belongs to some users of the model associated with its guard.

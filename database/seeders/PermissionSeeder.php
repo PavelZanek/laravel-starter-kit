@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder
@@ -18,27 +18,24 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        //        $permissions = [
-        //            'view_users',
-        //            'create_users',
-        //            'edit_users',
-        //            'delete_users',
-        //            'view_roles',
-        //            'create_roles',
-        //            'edit_roles',
-        //            'delete_roles',
-        //            'view_permissions',
-        //            'create_permissions',
-        //            'edit_permissions',
-        //            'delete_permissions',
-        //        ];
-        //
-        //        foreach($permissions as $permission){
-        //            Permission::query()->updateOrCreate([
-        //                'name' => $permission,
-        //                'is_default' => true,
-        //                'guard_name' => 'web',
-        //            ]);
-        //        }
+        $permissions = [
+            'users.view',
+            'users.viewAny',
+            'users.create',
+            'users.update',
+            'users.delete',
+            'roles.view',
+            'roles.viewAny',
+            'roles.create',
+            'roles.update',
+            'roles.delete',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::query()->updateOrCreate([
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
+        }
     }
 }

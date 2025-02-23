@@ -39,7 +39,6 @@ it('can update an item', function (): void {
         'modelData' => [
             'name' => fake()->name,
             'guard_name' => fake()->randomElement(RoleGuardEnum::values()),
-            // 'preferred_locale' => PreferredLocaleEnum::CS->value,
         ],
         //        'relations' => [
         //            'role' => Role::query()->where('name', DefaultRoleEnum::SUPER_ADMIN)->first()->id,

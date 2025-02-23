@@ -37,6 +37,7 @@ return [
     'form' => [
         'name' => 'Jméno',
         'guard_name' => 'Guard',
+        'permissions' => 'Oprávnění',
     ],
     'form_sections' => [
         'role_details' => [
@@ -65,6 +66,11 @@ return [
             'string' => ':Attribute musí být řetězec',
             'max' => ':Attribute nesmí být delší než :max znaků',
             'enum' => 'Vyberte platný :attribute',
+        ],
+        'permissions' => [
+            'array' => ':Attribute musí být pole',
+            'numeric' => ':Attribute musí být číslo',
+            'exists' => 'Vyberte platné :attribute',
         ],
     ],
 ];

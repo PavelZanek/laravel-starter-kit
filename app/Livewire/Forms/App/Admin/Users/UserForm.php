@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
+use Throwable;
 
 final class UserForm extends Form
 {
@@ -37,6 +38,9 @@ final class UserForm extends Form
         ];
     }
 
+    /**
+     * @throws Throwable
+     */
     public function save(): User
     {
         $this->validate();
@@ -97,6 +101,9 @@ final class UserForm extends Form
         return $validationAttributes;
     }
 
+    /**
+     * @throws Throwable
+     */
     private function storeRecord(Role $role): User
     {
         return (new CreateUserAction)->execute($this->modelData, $role);

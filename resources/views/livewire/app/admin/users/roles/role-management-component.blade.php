@@ -66,11 +66,11 @@
                         <td class="px-6 py-4">
                             @if($role->is_default)
                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-blue-900 dark:text-blue-300">
-                                    {{ $role->is_default ? __('common.yes') : __('common.no') }}
+                                    {{ __('common.yes') }}
                                 </span>
                             @else
                                 <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">
-                                    {{ $role->is_default ? __('common.yes') : __('common.no') }}
+                                    {{ __('common.no') }}
                                 </span>
                             @endif
                         </td>
@@ -81,10 +81,10 @@
                             {{ $role->users_count }}
                         </td>
                         <td class="px-6 py-4 text-right">
+                            <x-secondary-button-link wire:navigate href="{{ route('admin.roles.edit', $role) }}" class="mr-2">
+                                {{ __('common.actions.edit') }}
+                            </x-secondary-button-link>
                             @if(!$role->is_default)
-                                <x-secondary-button-link wire:navigate href="{{ route('admin.roles.edit', $role) }}" class="mr-2">
-                                    {{ __('common.actions.edit') }}
-                                </x-secondary-button-link>
                                 <x-danger-button wire:click="confirmItemDeletion({{ $role->id }})" wire:loading.attr="disabled">
                                     {{ __('common.actions.remove') }}
                                 </x-danger-button>

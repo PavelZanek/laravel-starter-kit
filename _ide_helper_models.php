@@ -15,7 +15,6 @@ namespace App\Models{
 /**
  * 
  *
- * @mixin IdeHelperMembership
  * @property int $id
  * @property int $team_id
  * @property int $user_id
@@ -31,15 +30,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership whereUserId($value)
+ * @mixin \Eloquent
  */
-	final class Membership extends \Eloquent {}
+	#[\AllowDynamicProperties]
+	final class IdeHelperMembership {}
 }
 
 namespace App\Models{
 /**
  * 
  *
- * @mixin IdeHelperRole
  * @property int $id
  * @property string $name
  * @property string $guard_name
@@ -65,15 +65,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Permission whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Permission withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Permission withoutRole($roles, $guard = null)
+ * @mixin \Eloquent
  */
-	final class Permission extends \Eloquent {}
+	#[\AllowDynamicProperties]
+	final class IdeHelperPermission {}
 }
 
 namespace App\Models{
 /**
  * 
  *
- * @mixin IdeHelperRole
  * @property int $id
  * @property string $name
  * @property string $guard_name
@@ -97,15 +98,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role withoutPermission($permissions)
+ * @mixin \Eloquent
  */
-	final class Role extends \Eloquent {}
+	#[\AllowDynamicProperties]
+	final class IdeHelperRole {}
 }
 
 namespace App\Models{
 /**
  * 
  *
- * @mixin IdeHelperTeam
  * @property int $id
  * @property int $user_id
  * @property string $name
@@ -129,15 +131,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Team wherePersonalTeam($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Team whereUserId($value)
+ * @mixin \Eloquent
  */
-	class Team extends \Eloquent {}
+	#[\AllowDynamicProperties]
+	class IdeHelperTeam {}
 }
 
 namespace App\Models{
 /**
  * 
  *
- * @mixin IdeHelperTeamInvitation
  * @property int $id
  * @property int $team_id
  * @property string $email
@@ -156,15 +159,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
-	final class TeamInvitation extends \Eloquent {}
+	#[\AllowDynamicProperties]
+	final class IdeHelperTeamInvitation {}
 }
 
 namespace App\Models{
 /**
  * 
  *
- * @mixin IdeHelperUser
  * @property int $id
  * @property string $name
  * @property string $email
@@ -217,7 +221,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutRole($roles, $guard = null)
+ * @mixin \Eloquent
  */
-	class User extends \Eloquent implements \Illuminate\Contracts\Translation\HasLocalePreference, \Illuminate\Contracts\Auth\MustVerifyEmail {}
+	#[\AllowDynamicProperties]
+	class IdeHelperUser {}
 }
 

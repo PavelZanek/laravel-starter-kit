@@ -9,16 +9,19 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Throwable;
 
 final readonly class CreateUserAction
 {
     /**
      * @param  array<string, mixed>  $data
+     *
+     * @throws Throwable
      */
     public function execute(array $data, Role $role): User
     {
         /** @var User $user */
-        $user = DB::transaction(function () use ($data, $role) {
+        $user = DB::transaction(function () use ($data, $role): User {
             $user = User::query()->create(array_merge($data, [
                 'password' => Hash::make(Str::random(10)),
                 'email_verified_at' => now(),

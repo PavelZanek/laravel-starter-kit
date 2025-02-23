@@ -19,6 +19,7 @@ return [
     'table_actions' => 'Actions',
     'search_for_items' => 'Search for items',
     'select' => 'Select',
+    'group' => 'Group',
     'created_at' => 'Created',
     'updated_at' => 'Updated',
     'deleted_at' => 'Deleted',

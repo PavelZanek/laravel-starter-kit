@@ -19,6 +19,7 @@ return [
     'table_actions' => 'Akce',
     'search_for_items' => 'Hledat položky',
     'select' => 'Vybrat',
+    'group' => 'Skupina',
     'created_at' => 'Vytvořeno',
     'updated_at' => 'Aktualizováno',
     'deleted_at' => 'Smazáno',

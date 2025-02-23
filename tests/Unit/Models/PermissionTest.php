@@ -15,3 +15,22 @@ test('to array', function (): void {
         'updated_at',
     ]);
 });
+
+it('returns a grouped permission select list', function () {
+    Permission::factory()->create(['name' => 'users.view', 'guard_name' => 'web']);
+    Permission::factory()->create(['name' => 'users.edit', 'guard_name' => 'web']);
+    Permission::factory()->create(['name' => 'posts.create', 'guard_name' => 'web']);
+    Permission::factory()->create(['name' => 'posts.delete', 'guard_name' => 'web']);
+
+    $permissions = Permission::getPermissionSelectList();
+
+    expect($permissions)->toBeArray()
+        ->and(array_keys($permissions))->toMatchArray(['posts', 'users'])
+        ->and($permissions['users'])->toBeArray()
+        ->and($permissions['posts'])->toBeArray()
+        ->and($permissions['users'])->toHaveCount(2)
+        ->and($permissions['users'][0])->toHaveKeys(['id', 'name'])
+        ->and($permissions['posts'])->toHaveCount(2)
+        ->and($permissions['posts'][0])->toHaveKeys(['id', 'name']);
+
+});

@@ -92,6 +92,9 @@ final class UserManagementComponent extends Component
         $this->confirmingItemManage = $user->id;
     }
 
+    /**
+     * @throws Throwable
+     */
     public function saveRecord(): void
     {
         $recordId = $this->form->modelData['id'] ?? null;

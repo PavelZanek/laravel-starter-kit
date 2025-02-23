@@ -7,6 +7,7 @@ namespace App\Livewire\App\Admin\Users\Roles;
 use App\Enums\Users\DefaultRoleEnum;
 use App\Enums\Users\RoleGuardEnum;
 use App\Livewire\Forms\App\Admin\Users\RoleForm;
+use App\Models\Permission;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -15,6 +16,11 @@ use Throwable;
 final class CreateRoleComponent extends Component
 {
     public RoleForm $form;
+
+    /**
+     * @var array<string, array<int, array<string, mixed>>>
+     */
+    public array $permissions;
 
     /**
      * @var Collection<int, array<string, string>>
@@ -31,6 +37,8 @@ final class CreateRoleComponent extends Component
         );
 
         $this->roleGuards = RoleGuardEnum::all();
+
+        $this->permissions = Permission::getPermissionSelectList();
 
         $this->form->setFormData();
     }

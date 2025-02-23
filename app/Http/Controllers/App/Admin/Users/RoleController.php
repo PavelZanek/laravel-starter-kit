@@ -31,8 +31,6 @@ final class RoleController extends Controller
      */
     public function edit(Role $role): View
     {
-        abort_if($role->is_default, 403);
-
         return view('app.admin.users.roles.edit', [
             'role' => $role,
         ]);

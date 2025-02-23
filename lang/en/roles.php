@@ -37,6 +37,7 @@ return [
     'form' => [
         'name' => 'Name',
         'guard_name' => 'Guard',
+        'permissions' => 'Permissions',
     ],
     'form_sections' => [
         'role_details' => [
@@ -65,6 +66,11 @@ return [
             'string' => 'The :attribute must be a string',
             'max' => 'The :attribute may not be greater than :max characters',
             'enum' => 'Select a valid :attribute',
+        ],
+        'permissions' => [
+            'required' => 'The :attribute is required',
+            'array' => 'The :attribute must be an array',
+            'exists' => 'The selected :attribute is invalid',
         ],
     ],
 ];

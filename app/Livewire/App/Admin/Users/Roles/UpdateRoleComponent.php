@@ -8,6 +8,7 @@ use App\Actions\App\Admin\Roles\DeleteRoleAction;
 use App\Enums\Users\DefaultRoleEnum;
 use App\Enums\Users\RoleGuardEnum;
 use App\Livewire\Forms\App\Admin\Users\RoleForm;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -19,6 +20,11 @@ final class UpdateRoleComponent extends Component
     public RoleForm $form;
 
     public Role $role;
+
+    /**
+     * @var array<string, array<int, array<string, mixed>>>
+     */
+    public array $permissions;
 
     /**
      * @var Collection<int, array<string, string>>
@@ -36,9 +42,11 @@ final class UpdateRoleComponent extends Component
 
         $this->roleGuards = RoleGuardEnum::all();
 
-        $this->form->setFormData($role);
+        $this->permissions = Permission::getPermissionSelectList();
 
         $this->role = $role;
+
+        $this->form->setFormData($role);
     }
 
     public function render(): View
