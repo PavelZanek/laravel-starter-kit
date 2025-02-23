@@ -31,7 +31,7 @@ it('can render the component', function (): void {
 
     livewire(UserManagementComponent::class)
         ->assertStatus(200)
-        ->assertViewIs('livewire.app.admin.user.user-management-component');
+        ->assertViewIs('livewire.app.admin.users.user-management-component');
 });
 
 it('can sort items', function (): void {

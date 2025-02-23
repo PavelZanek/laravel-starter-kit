@@ -6,11 +6,14 @@ namespace App\Actions\App\Admin\Roles;
 
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 final readonly class CreateRoleAction
 {
     /**
      * @param  array<string, mixed>  $data
+     *
+     * @throws Throwable
      */
     public function execute(array $data): Role
     {

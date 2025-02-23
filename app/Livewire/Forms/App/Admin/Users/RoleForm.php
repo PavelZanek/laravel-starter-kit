@@ -8,9 +8,11 @@ use App\Actions\App\Admin\Roles\CreateRoleAction;
 use App\Actions\App\Admin\Roles\UpdateRoleAction;
 use App\Enums\Users\RoleGuardEnum;
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
+use Throwable;
 
 final class RoleForm extends Form
 {
@@ -23,24 +25,34 @@ final class RoleForm extends Form
     {
         $this->modelData = $role instanceof Role
             ? [
-                'id' => $role->id,
                 'name' => $role->name,
                 'guard_name' => $role->guard_name,
             ]
-            // @codeCoverageIgnoreStart
             : [];
-        // @codeCoverageIgnoreEnd
     }
 
-    public function save(): Role
+    /**
+     * @throws Throwable
+     */
+    public function save(?Role $role = null): ?Role
     {
         $this->validate();
 
-        $role = isset($this->modelData['id']) ? $this->updateRecord() : $this->storeRecord();
+        $duplicatedRoleExists = Role::query()
+            ->where('name', $this->modelData['name'])
+            ->where('guard_name', $this->modelData['guard_name'])
+            ->when($role, fn (Builder $query) => $query->whereKeyNot($role?->getKey()))
+            ->exists();
 
-        $this->reset(['modelData']);
+        if ($duplicatedRoleExists) {
+            $this->addError('modelData.name', __('roles.validation.name.unique', [
+                'attribute' => __('roles.form.name'),
+            ]));
 
-        return $role;
+            return null;
+        }
+
+        return $role instanceof Role ? $this->updateRecord($role) : $this->storeRecord();
     }
 
     /**
@@ -49,13 +61,13 @@ final class RoleForm extends Form
     public function messages(): array
     {
         return [
-            'modelData.name.required' => __('roles.index.validation.name.required'),
-            'modelData.name.string' => __('roles.index.validation.name.string'),
-            'modelData.name.max' => __('roles.index.validation.name.max'),
-            'modelData.guard_name.required' => __('roles.index.validation.guard_name.required'),
-            'modelData.guard_name.string' => __('roles.index.validation.guard_name.string'),
-            'modelData.guard_name.max' => __('roles.index.validation.guard_name.max'),
-            'modelData.guard_name.enum' => __('roles.index.validation.guard_name.enum'),
+            'modelData.name.required' => __('roles.validation.name.required'),
+            'modelData.name.string' => __('roles.validation.name.string'),
+            'modelData.name.max' => __('roles.validation.name.max'),
+            'modelData.guard_name.required' => __('roles.validation.guard_name.required'),
+            'modelData.guard_name.string' => __('roles.validation.guard_name.string'),
+            'modelData.guard_name.max' => __('roles.validation.guard_name.max'),
+            'modelData.guard_name.enum' => __('roles.validation.guard_name.enum'),
         ];
     }
 
@@ -77,27 +89,26 @@ final class RoleForm extends Form
     {
         /** @var array<string, string> $validationAttributes */
         $validationAttributes = collect([
-            'modelData.name' => __('roles.index.form.name'),
-            'modelData.guard_name' => __('roles.index.form.guard_name'),
+            'modelData.name' => __('roles.form.name'),
+            'modelData.guard_name' => __('roles.form.guard_name'),
         ])->map(fn (string $value, string $key): array => [$key => Str::lower($value)])->collapse()->toArray();
 
         return $validationAttributes;
-        //        TODO
-        //        return __('roles.index.form.');
     }
 
+    /**
+     * @throws Throwable
+     */
     private function storeRecord(): Role
     {
         return (new CreateRoleAction)->execute($this->modelData);
     }
 
-    private function updateRecord(): Role
+    /**
+     * @throws Throwable
+     */
+    private function updateRecord(Role $role): Role
     {
-        /** @var Role $role */
-        $role = Role::query()->findOrFail($this->modelData['id']);
-
-        unset($this->modelData['id']);
-
         return (new UpdateRoleAction)->execute($role, $this->modelData);
     }
 }

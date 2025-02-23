@@ -56,7 +56,7 @@ final class UserManagementComponent extends Component
 
     public function render(): View
     {
-        return view('livewire.app.admin.user.user-management-component', [
+        return view('livewire.app.admin.users.user-management-component', [
             'users' => User::query()
                 ->with(['roles'])
                 ->where(function (Builder $query): void {

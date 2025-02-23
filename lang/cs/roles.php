@@ -14,29 +14,57 @@ return [
             'number_of_users' => 'Počet uživatelů',
             'no_items' => 'Žádné uživatelské role nebyly nalezeny',
         ],
-        'form' => [
-            'name' => 'Jméno',
-            'guard_name' => 'Guard',
-        ],
-        'validation' => [
-            'name' => [
-                'required' => ':Attribute je povinné',
-                'string' => ':Attribute musí být řetězec',
-                'max' => ':Attribute nesmí být delší než :max znaků',
-            ],
-            'guard_name' => [
-                'required' => ':Attribute je povinné',
-                'string' => ':Attribute musí být řetězec',
-                'max' => ':Attribute nesmí být delší než :max znaků',
-                'enum' => 'Vyberte platný :attribute',
-            ],
-        ],
+    ],
+    'create' => [
+        'title' => 'Vytvořit roli',
+        'headline' => 'Vytvořit novou uživatelskou roli',
+        'meta_description' => 'Vytvořit novou uživatelskou roli',
         'create_role' => 'Vytvořit uživatelskou roli',
+    ],
+    'edit' => [
+        'title' => 'Upravit roli',
+        'headline' => 'Upravit uživatelskou roli',
+        'meta_description' => 'Upravit uživatelskou roli',
         'edit_role' => 'Upravit uživatelskou roli',
+    ],
+    'delete' => [
         'delete_role' => 'Smazat uživatelskou roli',
         'confirm_delete_role' => 'Opravdu chcete smazat tuto uživatelskou roli?',
         'flash_messages' => [
             'delete_error' => 'Nelze smazat uživatelskou roli, která je přiřazena k uživatelům',
+        ],
+    ],
+    'form' => [
+        'name' => 'Jméno',
+        'guard_name' => 'Guard',
+    ],
+    'form_sections' => [
+        'role_details' => [
+            'title' => 'Detaily role',
+            'description' => 'Zadejte detaily role',
+        ],
+        'permissions' => [
+            'title' => 'Oprávnění',
+            'description' => 'Vyberte oprávnění pro roli',
+        ],
+        'delete' => [
+            'title' => 'Smazat roli',
+            'description' => 'Opravdu chcete smazat tuto roli?',
+            'more_info' => 'Tato akce nemůže být vrácena. Nemůže být žádný uživatel přiřazen k této roli.',
+        ],
+    ],
+    'validation' => [
+        'name' => [
+            'required' => ':Attribute je povinné',
+            'string' => ':Attribute musí být řetězec',
+            'max' => ':Attribute nesmí být delší než :max znaků',
+            'unique' => 'Tato :attribute již existuje',
+        ],
+        'guard_name' => [
+            'required' => ':Attribute je povinné',
+            'string' => ':Attribute musí být řetězec',
+            'max' => ':Attribute nesmí být delší než :max znaků',
+            'enum' => 'Vyberte platný :attribute',
         ],
     ],
 ];

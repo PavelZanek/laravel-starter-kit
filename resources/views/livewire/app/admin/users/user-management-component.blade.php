@@ -103,7 +103,7 @@
                     </tr>
                 @empty
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="px-6 py-4" colspan="5">
+                        <td class="px-6 py-4" colspan="6">
                             <div class="flex justify-center items-center">
                                 <span class="text-gray-400 dark:text-gray-600">
                                     {{ __('users.index.table.no_items') }}
@@ -116,7 +116,7 @@
         </table>
     </div>
 
-    @if(count($users) >= $itemsPerPage)
+    @if(count($users) > $itemsPerPage)
         <div class="mt-2 md:mt-4 xl:mt-8 px-4 py-4 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg">
             {{ $users->links(data: ['scrollTo' => '#user-management-component']) }}
         </div>

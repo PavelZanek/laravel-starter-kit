@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use App\Enums\Users\DefaultRoleEnum;
 use App\Http\Controllers\App\Admin\AdminDashboardController;
-use App\Http\Controllers\App\Admin\RoleController;
-use App\Http\Controllers\App\Admin\UserController;
+use App\Http\Controllers\App\Admin\Users\RoleController;
+use App\Http\Controllers\App\Admin\Users\UserController;
 use App\Http\Controllers\App\DashboardController;
 use App\Http\Controllers\Guest\HomepageController;
 use App\Http\Controllers\LanguageSwitcherController;
@@ -28,7 +28,7 @@ Route::middleware([
         ], function (): void {
             Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
             Route::get('/users', UserController::class)->name('users.index');
-            Route::get('/roles', RoleController::class)->name('roles.index');
+            Route::resource('roles', RoleController::class)->only(['index', 'create', 'edit']);
         });
     });
 });
