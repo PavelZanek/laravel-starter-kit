@@ -11,7 +11,6 @@ return [
             'name' => 'Name',
             'email' => 'Email',
             'role' => 'Role',
-            'actions' => 'Actions',
             'no_items' => 'No users found',
             'select_role' => 'Select role',
         ],

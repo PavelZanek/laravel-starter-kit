@@ -219,16 +219,18 @@
                                     {{ __('nav.admin') }}
                                 </x-sidebar-nav-link>
                                 <x-sidebar-nav-group label="{{ __('nav.user_management') }}"
-                                                     :active="request()->routeIs('admin.users.*')"
+                                                     :active="request()->routeIs('admin.users.*') || request()->routeIs('admin.roles.*')"
                                                      icon="heroicon-o-user-group">
                                     <x-sidebar-nav-link wire:navigate :href="route('admin.users.index')"
                                                         :active="request()->routeIs('admin.users.*')"
                                                         icon="heroicon-o-users">
                                         {{ __('nav.users') }}
                                     </x-sidebar-nav-link>
-                                    {{--                                        <x-sidebar-nav-link wire:navigate :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')" icon="heroicon-o-shield-check">--}}
-                                    {{--                                            {{ __('nav.roles') }}--}}
-                                    {{--                                        </x-sidebar-nav-link>--}}
+                                    <x-sidebar-nav-link wire:navigate :href="route('admin.roles.index')"
+                                                        :active="request()->routeIs('admin.roles.*')"
+                                                        icon="heroicon-o-shield-check">
+                                        {{ __('nav.roles') }}
+                                    </x-sidebar-nav-link>
                                 </x-sidebar-nav-group>
                             </x-sidebar-nav-group>
                             @endhasanyrole

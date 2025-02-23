@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\Contracts\DeletesTeams;
 use Laravel\Jetstream\Contracts\DeletesUsers;
+use Throwable;
 
 final readonly class DeleteUser implements DeletesUsers
 {
@@ -19,6 +20,8 @@ final readonly class DeleteUser implements DeletesUsers
 
     /**
      * Delete the given user.
+     *
+     * @throws Throwable
      */
     public function delete(User $user): void
     {
@@ -37,7 +40,7 @@ final readonly class DeleteUser implements DeletesUsers
     {
         $user->teams()->detach();
 
-        $user->ownedTeams->each(function (Team $team): void { // @phpstan-ignore-line
+        $user->ownedTeams->each(function (Team $team): void {
             $this->deletesTeams->delete($team);
         });
     }

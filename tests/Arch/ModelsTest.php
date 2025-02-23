@@ -7,9 +7,9 @@ arch('models')
     ->toHaveMethod('casts')
     ->toExtend('Illuminate\Database\Eloquent\Model')
     ->toOnlyBeUsedIn([
+        'App\Actions',
         'App\Concerns',
         'App\Console',
-        'App\EventActions',
         'App\Http',
         'App\Jobs',
         'App\Livewire',
@@ -31,7 +31,7 @@ arch('models')
     ]);
 
 arch('ensure factories', function (): void {
-    expect($models = getModels())->toHaveCount(4);
+    expect($models = getModels())->toHaveCount(5);
 
     foreach ($models as $model) {
         if (isWithoutFactory($model)) {
@@ -45,7 +45,7 @@ arch('ensure factories', function (): void {
 });
 
 arch('ensure datetime casts', function (): void {
-    expect($models = getModels())->toHaveCount(4);
+    expect($models = getModels())->toHaveCount(5);
 
     foreach ($models as $model) {
         if (isWithoutFactory($model)) {

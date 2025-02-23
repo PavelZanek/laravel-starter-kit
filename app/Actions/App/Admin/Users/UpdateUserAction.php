@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Actions\App\Admin\Users;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 
 final readonly class UpdateUserAction
 {

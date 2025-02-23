@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use App\Actions\App\Admin\Users\UpdateUserAction;
+use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
-use Spatie\Permission\Models\Role;
 
 use function Pest\Laravel\seed;
 

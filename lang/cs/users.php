@@ -11,7 +11,6 @@ return [
             'name' => 'Jméno',
             'email' => 'Email',
             'role' => 'Role',
-            'actions' => 'Akce',
             'no_items' => 'Žádní uživatelé nenalezeni',
             'select_role' => 'Vyberte roli',
         ],

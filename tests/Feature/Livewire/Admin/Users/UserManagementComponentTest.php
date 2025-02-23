@@ -5,9 +5,9 @@ declare(strict_types=1);
 use App\Enums\Users\DefaultRoleEnum;
 use App\Enums\Users\PreferredLocaleEnum;
 use App\Livewire\App\Admin\Users\UserManagementComponent;
+use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
-use Spatie\Permission\Models\Role;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;

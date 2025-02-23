@@ -4,38 +4,34 @@ declare(strict_types=1);
 
 namespace App\Livewire\App\Admin\Users;
 
-use App\Actions\Jetstream\DeleteUser;
+use App\Actions\App\Admin\Roles\DeleteRoleAction;
 use App\Enums\Users\DefaultRoleEnum;
-use App\Livewire\Forms\App\Admin\Users\UserForm;
+use App\Enums\Users\RoleGuardEnum;
+use App\Livewire\Forms\App\Admin\Users\RoleForm;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Throwable;
 
-final class UserManagementComponent extends Component
+final class RoleManagementComponent extends Component
 {
     use WithPagination;
 
-    public UserForm $form;
+    public RoleForm $form;
 
     /**
-     * @var Collection<int, Role>
+     * @var Collection<int, array<string, string>>
      */
-    public Collection $roles;
+    public Collection $roleGuards;
 
     public int $itemsPerPage = 10;
 
     public string $sortField = 'name';
 
     public string $sortDirection = 'asc';
-
-    #[Url(as: 'role', except: 'not_set')]
-    public string $selectedRole = 'not_set';
 
     #[Url(as: 's', except: '')]
     public string $search = '';
@@ -51,22 +47,18 @@ final class UserManagementComponent extends Component
             403
         );
 
-        $this->roles = Role::query()->orderBy('name')->get();
+        $this->roleGuards = RoleGuardEnum::all();
     }
 
     public function render(): View
     {
-        return view('livewire.app.admin.user.user-management-component', [
-            'users' => User::query()
-                ->with(['roles'])
+        return view('livewire.app.admin.roles.role-management-component', [
+            'roles' => Role::query()
+                ->withCount(['users'])
+                // ->with('users')
                 ->where(function (Builder $query): void {
                     $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('email', 'like', '%'.$this->search.'%');
-                })
-                ->when($this->selectedRole !== 'not_set', function (Builder $query): void {
-                    $query->whereHas('roles', function (Builder $query): void {
-                        $query->where('id', (int) $this->selectedRole);
-                    });
+                        ->orWhere('guard_name', 'like', '%'.$this->search.'%');
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->itemsPerPage),
@@ -75,7 +67,7 @@ final class UserManagementComponent extends Component
 
     public function updated(string $property): void
     {
-        if (in_array($property, ['selectedRole', 'search'])) {
+        if ($property === 'search') {
             $this->resetPage();
         }
     }
@@ -86,15 +78,27 @@ final class UserManagementComponent extends Component
         $this->confirmingItemManage = true;
     }
 
-    public function confirmItemEdit(User $user): void
+    public function confirmItemEdit(Role $role): void
     {
-        $this->form->setFormData($user);
-        $this->confirmingItemManage = $user->id;
+        abort_if($role->is_default, 403);
+
+        $this->form->setFormData($role);
+        /** @var int $roleId */
+        $roleId = $role->id;
+        $this->confirmingItemManage = $roleId;
     }
 
     public function saveRecord(): void
     {
+        /** @var ?int $recordId */
         $recordId = $this->form->modelData['id'] ?? null;
+
+        if ($recordId) {
+            /** @var Role $role */
+            $role = Role::query()->findOrFail($recordId);
+            abort_if($role->is_default, 403);
+        }
+
         $this->form->save();
         $this->confirmingItemManage = false;
         $this->dispatch(event: 'swal:alert', type: 'success', title: $recordId
@@ -103,17 +107,29 @@ final class UserManagementComponent extends Component
         );
     }
 
-    public function confirmItemDeletion(User $user): void
+    public function confirmItemDeletion(Role $role): void
     {
-        $this->confirmingItemDeletion = $user->id;
+        abort_if($role->is_default, 403);
+
+        /** @var int $roleId */
+        $roleId = $role->id;
+        $this->confirmingItemDeletion = $roleId;
     }
 
-    /**
-     * @throws Throwable
-     */
-    public function deleteRecord(User $user): void
+    public function deleteRecord(Role $role): void
     {
-        app(DeleteUser::class)->delete($user);
+        abort_if((bool) $role->is_default, 403);
+
+        $role->loadCount('users');
+
+        if ($role->users_count > 0) {
+            $this->dispatch(event: 'swal:alert', type: 'error', title: __('roles.index.flash_messages.delete_error'));
+
+            return;
+        }
+
+        (new DeleteRoleAction)->execute($role);
+
         $this->confirmingItemDeletion = false;
 
         $this->dispatch(event: 'swal:alert', type: 'success', title: __('common.flash_messages.deleted'));

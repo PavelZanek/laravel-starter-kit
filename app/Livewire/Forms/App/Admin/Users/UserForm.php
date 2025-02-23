@@ -6,11 +6,11 @@ namespace App\Livewire\Forms\App\Admin\Users;
 
 use App\Actions\App\Admin\Users\CreateUserAction;
 use App\Actions\App\Admin\Users\UpdateUserAction;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
-use Spatie\Permission\Models\Role;
 
 final class UserForm extends Form
 {
