@@ -18,7 +18,7 @@ it('allows all roles to display the dashboard', function (DefaultRoleEnum $role)
 })->with([DefaultRoleEnum::SUPER_ADMIN, DefaultRoleEnum::ADMIN, DefaultRoleEnum::BASIC]);
 
 it('denies access to unauthenticated user for the dashboard', function (): void {
-get(route('dashboard'))
-->assertStatus(Response::HTTP_FOUND)
-->assertRedirect(route('login'));
-    });
+    get(route('dashboard'))
+        ->assertStatus(Response::HTTP_FOUND)
+        ->assertRedirect(route('login'));
+});

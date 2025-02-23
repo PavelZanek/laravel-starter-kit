@@ -16,7 +16,7 @@ test('to array', function (): void {
     ]);
 });
 
-it('returns a grouped permission select list', function () {
+it('returns a grouped permission select list', function (): void {
     Permission::factory()->create(['name' => 'users.view', 'guard_name' => 'web']);
     Permission::factory()->create(['name' => 'users.edit', 'guard_name' => 'web']);
     Permission::factory()->create(['name' => 'posts.create', 'guard_name' => 'web']);
