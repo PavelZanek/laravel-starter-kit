@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Enums\Users\DefaultRoleEnum;
 use App\Enums\Users\RoleGuardEnum;
 use App\Livewire\App\Admin\Users\Roles\UpdateRoleComponent;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 
@@ -31,18 +32,28 @@ it('can render the component', function (): void {
 });
 
 it('can update an item', function (): void {
+    $guard = fake()->randomElement(RoleGuardEnum::values());
+
     $item = Role::factory()->create([
+        'guard_name' => $guard,
         'is_default' => false,
+    ]);
+
+    [$permission1, $permission2] = Permission::factory()->count(2)->create([
+        'guard_name' => $guard,
     ]);
 
     $data = [
         'modelData' => [
             'name' => fake()->name,
-            'guard_name' => fake()->randomElement(RoleGuardEnum::values()),
+            'guard_name' => $guard,
         ],
-        //        'relations' => [
-        //            'role' => Role::query()->where('name', DefaultRoleEnum::SUPER_ADMIN)->first()->id,
-        //        ],
+        'relations' => [
+            'permissions' => [
+                $permission1->id => true,
+                $permission2->id => true,
+            ],
+        ],
     ];
 
     livewire(UpdateRoleComponent::class, ['role' => $item])
@@ -52,7 +63,7 @@ it('can update an item', function (): void {
         ])
         ->set('form.modelData.name', $data['modelData']['name'])
         ->set('form.modelData.guard_name', $data['modelData']['guard_name'])
-        // ->set('form.relations.role', $data['relations']['role'])
+        ->set('form.relations', $data['relations'])
         ->call('saveRecord')
         ->assertDispatched('swal:alert', type: 'success', title: __('common.flash_messages.updated'));
 
@@ -60,6 +71,47 @@ it('can update an item', function (): void {
         'name' => $data['modelData']['name'],
         'guard_name' => $data['modelData']['guard_name'],
         'is_default' => $item->is_default,
+    ]);
+
+    assertDatabaseHas('role_has_permissions', [
+        'role_id' => $item->id,
+        'permission_id' => $permission1->id,
+    ]);
+
+    assertDatabaseHas('role_has_permissions', [
+        'role_id' => $item->id,
+        'permission_id' => $permission2->id,
+    ]);
+});
+
+it('can remove permissions from role', function (): void {
+    $guard = fake()->randomElement(RoleGuardEnum::values());
+
+    [$permission1, $permission2] = Permission::factory()->count(2)->create([
+        'guard_name' => $guard,
+    ]);
+
+    $role = Role::factory()->create([
+        'guard_name' => $guard,
+        'is_default' => false,
+    ]);
+
+    $role->permissions()->sync([$permission1->id, $permission2->id]);
+
+    livewire(UpdateRoleComponent::class, ['role' => $role])
+        ->set('form.relations', ['permissions' => [
+            $permission1->id => true,
+        ]])
+        ->call('saveRecord')
+        ->assertDispatched('swal:alert', type: 'success', title: __('common.flash_messages.updated'));
+
+    assertDatabaseHas('role_has_permissions', [
+        'role_id' => $role->id,
+        'permission_id' => $permission1->id,
+    ]);
+    assertDatabaseMissing('role_has_permissions', [
+        'role_id' => $role->id,
+        'permission_id' => $permission2->id,
     ]);
 });
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Enums\Users\DefaultRoleEnum;
 use App\Enums\Users\RoleGuardEnum;
 use App\Livewire\App\Admin\Users\Roles\CreateRoleComponent;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 
@@ -28,20 +29,29 @@ it('can render the component', function (): void {
 });
 
 it('can create an item', function (): void {
+    $guard = fake()->randomElement(RoleGuardEnum::values());
+
+    [$permission1, $permission2] = Permission::factory()->count(2)->create([
+        'guard_name' => $guard,
+    ]);
+
     $data = [
         'modelData' => [
             'name' => fake()->name,
-            'guard_name' => fake()->randomElement(RoleGuardEnum::values()),
+            'guard_name' => $guard,
         ],
-        //        'relations' => [
-        //            'role' => Role::query()->where('name', DefaultRoleEnum::SUPER_ADMIN)->first()->id,
-        //        ],
+        'relations' => [
+            'permissions' => [
+                $permission1->id => true,
+                $permission2->id => true,
+            ],
+        ],
     ];
 
     livewire(CreateRoleComponent::class)
         ->assertSet('form.modelData', [])
         ->set('form.modelData', $data['modelData'])
-        // ->set('form.relations.role', $data['relations']['role'])
+        ->set('form.relations', $data['relations'])
         ->call('saveRecord')
         ->assertHasNoErrors()
         ->assertDispatched('swal:alert', type: 'success');
@@ -50,6 +60,22 @@ it('can create an item', function (): void {
         'name' => $data['modelData']['name'],
         'guard_name' => $data['modelData']['guard_name'],
         'is_default' => false,
+    ]);
+
+    $newRole = Role::query()
+        ->where('name', $data['modelData']['name'])
+        ->where('guard_name', $guard)
+        ->where('is_default', false)
+        ->first();
+
+    assertDatabaseHas('role_has_permissions', [
+        'role_id' => $newRole->id,
+        'permission_id' => $permission1->id,
+    ]);
+
+    assertDatabaseHas('role_has_permissions', [
+        'role_id' => $newRole->id,
+        'permission_id' => $permission2->id,
     ]);
 });
 
