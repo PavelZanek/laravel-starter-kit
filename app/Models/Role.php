@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Role as SpatieRole;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * @mixin IdeHelperRole
+ * @property bool $is_default
  */
 final class Role extends SpatieRole
 {

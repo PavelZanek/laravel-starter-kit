@@ -13,9 +13,6 @@ parameters:
 	    - database/factories
 	    - routes
 
-	scanFiles:
-	    - _ide_helper_models.php
-
 #	reportUnmatchedIgnoredErrors: false
 #	ignoreErrors: # TODO: Remove this section after fixing all errors in Github Actions
 #	    - '#PHPDoc tag @mixin contains unknown class#'

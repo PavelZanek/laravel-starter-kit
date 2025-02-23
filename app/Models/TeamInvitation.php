@@ -10,9 +10,6 @@ use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
 use Override;
 
-/**
- * @mixin IdeHelperTeamInvitation
- */
 final class TeamInvitation extends JetstreamTeamInvitation
 {
     /** @use HasFactory<\Database\Factories\TeamInvitationFactory> */

@@ -10,9 +10,6 @@ use Override;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Permission\PermissionRegistrar;
 
-/**
- * @mixin IdeHelperPermission
- */
 final class Permission extends SpatiePermission
 {
     /** @use HasFactory<\Database\Factories\PermissionFactory> */
