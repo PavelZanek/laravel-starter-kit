@@ -16,6 +16,10 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property PreferredLocaleEnum $preferred_locale
+ * @property array{'database': bool, 'mail': bool} $notification_channels
+ */
 class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     use HasApiTokens;
@@ -39,6 +43,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
         'email',
         'password',
         'preferred_locale',
+        'notification_channels',
         'email_verified_at',
         'remember_token',
         'current_team_id',
@@ -87,6 +92,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'preferred_locale' => PreferredLocaleEnum::class,
+            'notification_channels' => 'array',
         ];
     }
 }

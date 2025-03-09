@@ -33,21 +33,21 @@ final readonly class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return DB::transaction(function () use ($input) {
+            $preferredLocale = match (app()->getLocale()) {
+                'cs' => PreferredLocaleEnum::CS->value,
+                default => PreferredLocaleEnum::EN->value,
+            };
+
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'preferred_locale' => $preferredLocale,
+                'notification_channels' => ['database' => true, 'mail' => false],
             ]), function (User $user): void {
-                $preferredLocale = match (app()->getLocale()) {
-                    'cs' => PreferredLocaleEnum::CS->value,
-                    default => PreferredLocaleEnum::EN->value,
-                };
-
-                $user->update(['preferred_locale' => $preferredLocale]);
-
                 $user->assignRole(DefaultRoleEnum::BASIC);
 
-                app()->setLocale($preferredLocale);
+                app()->setLocale($user->preferredLocale());
 
                 $this->createTeam($user);
             });

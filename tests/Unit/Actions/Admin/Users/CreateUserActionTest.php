@@ -6,13 +6,8 @@ use App\Actions\App\Admin\Users\CreateUserAction;
 use App\Enums\Users\PreferredLocaleEnum;
 use App\Models\Role;
 use App\Models\User;
-use Database\Seeders\RoleSeeder;
-
-use function Pest\Laravel\seed;
 
 it('can create a record', function (): void {
-    seed(RoleSeeder::class);
-
     $attributes = [
         'name' => fake()->firstName(),
         'email' => fake()->email(),
@@ -20,12 +15,14 @@ it('can create a record', function (): void {
             PreferredLocaleEnum::CS->value,
             PreferredLocaleEnum::EN->value,
         ]),
+        'notification_channels' => ['database' => true, 'mail' => fake()->boolean()],
     ];
 
-    $model = (new CreateUserAction)->execute($attributes, Role::query()->firstOrFail());
+    $model = (new CreateUserAction)->execute($attributes, Role::factory()->create());
 
     expect($model)->toBeInstanceOf(User::class)
         ->and($model->name)->toBe($attributes['name'])
         ->and($model->email)->toBe($attributes['email'])
-        ->and($model->preferred_locale->value)->toBe($attributes['preferred_locale']);
+        ->and($model->preferred_locale->value)->toBe($attributes['preferred_locale'])
+        ->and($model->notification_channels)->toBe($attributes['notification_channels']);
 });

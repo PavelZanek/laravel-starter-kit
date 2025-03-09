@@ -15,6 +15,7 @@ test('to array', function (): void {
         'current_team_id',
         'profile_photo_path',
         'preferred_locale',
+        'notification_channels',
         'created_at',
         'updated_at',
         'two_factor_confirmed_at',

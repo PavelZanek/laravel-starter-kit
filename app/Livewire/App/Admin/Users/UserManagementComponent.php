@@ -6,11 +6,13 @@ namespace App\Livewire\App\Admin\Users;
 
 use App\Actions\Jetstream\DeleteUser;
 use App\Enums\Users\DefaultRoleEnum;
+use App\Enums\Users\PreferredLocaleEnum;
 use App\Livewire\Forms\App\Admin\Users\UserForm;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -27,6 +29,11 @@ final class UserManagementComponent extends Component
      * @var Collection<int, Role>
      */
     public Collection $roles;
+
+    /**
+     * @var SupportCollection<int, array<string, string>>
+     */
+    public SupportCollection $preferredLocales;
 
     public int $itemsPerPage = 10;
 
@@ -52,6 +59,7 @@ final class UserManagementComponent extends Component
         );
 
         $this->roles = Role::query()->orderBy('name')->get();
+        $this->preferredLocales = PreferredLocaleEnum::all();
     }
 
     public function render(): View

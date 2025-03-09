@@ -17,6 +17,9 @@ return [
         'form' => [
             'name' => 'Jméno',
             'email' => 'Email',
+            'preferred_locale' => 'Preferovaný jazyk',
+            'notification_channels' => 'Upozornění',
+            'mail' => 'Email',
             'role' => 'Role',
         ],
         'validation' => [
@@ -31,6 +34,20 @@ return [
                 'email' => ':Attribute musí být platná emailová adresa',
                 'max' => ':Attribute nesmí být delší než :max znaků',
                 'unique' => ':Attribute musí být unikátní',
+            ],
+            'preferred_locale' => [
+                'required' => ':Attribute je povinná',
+                'string' => ':Attribute musí být řetězec',
+                'max' => ':Attribute nesmí být delší než :max znaků',
+                'enum' => ':Attribute musí být platná možnost',
+            ],
+            'notification_channels' => [
+                'required' => ':Attribute je povinný',
+                'array' => ':Attribute musí být pole',
+                'mail' => [
+                    'required' => ':Attribute je povinný',
+                    'boolean' => ':Attribute musí být boolean',
+                ],
             ],
             'role' => [
                 'required' => ':Attribute je povinná',

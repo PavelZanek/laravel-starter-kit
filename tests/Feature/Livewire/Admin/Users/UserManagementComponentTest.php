@@ -7,17 +7,13 @@ use App\Enums\Users\PreferredLocaleEnum;
 use App\Livewire\App\Admin\Users\UserManagementComponent;
 use App\Models\Role;
 use App\Models\User;
-use Database\Seeders\RoleSeeder;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
-use function Pest\Laravel\seed;
 use function Pest\Livewire\livewire;
 
 beforeEach(function (): void {
-    seed(RoleSeeder::class);
-
     actingAs(
         User::factory()
             ->withPersonalTeam()
@@ -82,7 +78,8 @@ it('can create an item', function (): void {
         'modelData' => [
             'name' => 'User',
             'email' => 'user@test.com',
-            // 'preferred_locale' => PreferredLocaleEnum::CS->value,
+            'preferred_locale' => PreferredLocaleEnum::CS->value,
+            'notification_channels' => ['database' => true, 'mail' => true],
         ],
         'relations' => [
             'role' => Role::query()->where('name', DefaultRoleEnum::SUPER_ADMIN)->first()->id,
@@ -100,22 +97,27 @@ it('can create an item', function (): void {
     assertDatabaseHas('users', [
         'name' => 'User',
         'email' => 'user@test.com',
-        'preferred_locale' => PreferredLocaleEnum::EN->value,
+        'preferred_locale' => PreferredLocaleEnum::CS->value,
+        'notification_channels' => json_encode(['database' => true, 'mail' => true]),
     ]);
 });
 
 it('can confirm item edit', function (): void {
-    $user = User::factory()->create();
+    $user = User::factory()->withRole()->create();
 
     $component = livewire(UserManagementComponent::class)
         ->call('confirmItemEdit', $user)
         ->assertSet('confirmingItemManage', $user->id);
 
-    expect($component->instance()->form->modelData)->toEqual([
-        'id' => $user->id,
-        'name' => $user->name,
-        'email' => $user->email,
-    ]);
+    expect($component->instance())
+        ->form->modelData->toEqual([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'preferred_locale' => $user->preferred_locale->value,
+            'notification_channels' => $user->notification_channels,
+        ])
+        ->form->relations->toEqual(['role' => $user->roles->first()->id]);
 });
 
 it('can update an item', function (): void {
@@ -125,7 +127,8 @@ it('can update an item', function (): void {
         'modelData' => [
             'name' => 'User',
             'email' => 'user@test.com',
-            // 'preferred_locale' => PreferredLocaleEnum::CS->value,
+            'preferred_locale' => PreferredLocaleEnum::CS->value,
+            'notification_channels' => ['database' => true, 'mail' => true],
         ],
         'relations' => [
             'role' => Role::query()->where('name', DefaultRoleEnum::SUPER_ADMIN)->first()->id,
@@ -139,9 +142,13 @@ it('can update an item', function (): void {
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'preferred_locale' => $user->preferred_locale->value,
+            'notification_channels' => $user->notification_channels,
         ])
         ->set('form.modelData.name', $data['modelData']['name'])
         ->set('form.modelData.email', $data['modelData']['email'])
+        ->set('form.modelData.preferred_locale', $data['modelData']['preferred_locale'])
+        ->set('form.modelData.notification_channels', $data['modelData']['notification_channels'])
         ->set('form.relations.role', $data['relations']['role'])
         ->call('saveRecord')
         ->assertDispatched('swal:alert', type: 'success', title: __('common.flash_messages.updated'));
@@ -149,7 +156,8 @@ it('can update an item', function (): void {
     assertDatabaseHas('users', [
         'name' => 'User',
         'email' => 'user@test.com',
-        // 'preferred_locale' => PreferredLocaleEnum::EN->value,
+        'preferred_locale' => PreferredLocaleEnum::CS->value,
+        'notification_channels' => json_encode(['database' => true, 'mail' => true]),
     ]);
 });
 

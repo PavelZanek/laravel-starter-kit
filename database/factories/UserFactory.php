@@ -41,6 +41,7 @@ final class UserFactory extends Factory
             'profile_photo_path' => null,
             'current_team_id' => null,
             'preferred_locale' => fake()->randomElement(config('project.available_locales')),
+            'notification_channels' => ['database' => true, 'mail' => fake()->boolean()],
         ];
     }
 

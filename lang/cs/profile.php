@@ -97,4 +97,15 @@ return [
             ],
         ],
     ],
+    'notification_channels_form' => [
+        'title' => 'Upozornění',
+        'description' => 'Nastavte si, jakým způsobem chcete být upozorňováni na nové události.',
+        'fields' => [
+            'database' => 'V aplikaci',
+            'mail' => 'E-mail',
+        ],
+        'messages' => [
+            'mail.boolean' => 'Toto pole má napletnou hodnotu.',
+        ],
+    ],
 ];

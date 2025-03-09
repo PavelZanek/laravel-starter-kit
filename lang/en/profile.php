@@ -97,4 +97,19 @@ return [
             ],
         ],
     ],
+    'notification_channels_form' => [
+        'title' => 'Notification channels',
+        'description' => 'Choose the channels through which you want to receive notifications.',
+        'fields' => [
+            'database' => 'In-app',
+            'mail' => 'Email',
+        ],
+        'request' => [
+            'update' => [
+                'mail' => [
+                    'boolean' => 'The email field has an invalid value.',
+                ],
+            ],
+        ],
+    ],
 ];

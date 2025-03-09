@@ -17,6 +17,9 @@ return [
         'form' => [
             'name' => 'Name',
             'email' => 'Email',
+            'preferred_locale' => 'Preferred locale',
+            'notification_channels' => 'Notifications',
+            'mail' => 'Email',
             'role' => 'Role',
         ],
         'validation' => [
@@ -31,6 +34,20 @@ return [
                 'email' => 'The :attribute must be a valid email address',
                 'max' => 'The :attribute may not be greater than :max characters',
                 'unique' => 'The :attribute must be unique',
+            ],
+            'preferred_locale' => [
+                'required' => 'The :attribute is required',
+                'string' => 'The :attribute must be a string',
+                'max' => 'The :attribute may not be greater than :max characters',
+                'enum' => 'The :attribute must be a valid option',
+            ],
+            'notification_channels' => [
+                'required' => 'The :attribute is required',
+                'array' => 'The :attribute must be an array',
+                'mail' => [
+                    'required' => 'The :attribute is required',
+                    'boolean' => 'The :attribute must be a boolean',
+                ],
             ],
             'role' => [
                 'required' => 'The :attribute is required',
